@@ -18,6 +18,7 @@ DeepSeek OCR 모델을 이용해 PDF를 Markdown으로 변환하는 CLI 도구
 - grounding 메타데이터 자동 제거
 - 결과를 `{날짜}_{파일명}_ocr.md` 형식으로 저장
 - 다중 GPU 병렬 처리 지원 (`NUM_GPUS` 설정)
+- 처리 로그 파일 자동 생성 (`logs/` 폴더)
 
 ## 요구 사항
 
@@ -85,6 +86,22 @@ python pdf.py tiger_kr.pdf
 
 결과 파일은 `OUTPUT_DIR`에 `{YYYYMMDD}_{파일명}_ocr.md` 형식으로 저장됩니다.
 
+## 로그
+
+실행 시 `logs/` 폴더에 날짜별 로그 파일이 자동 생성됩니다.
+
+```
+logs/
+└── 20260623_ocr.log
+```
+
+| 출력 | 레벨 | 내용 |
+|------|------|------|
+| 파일 | `DEBUG` | 페이지 완료 등 상세 내용 포함 |
+| 콘솔 | `INFO` | 주요 진행 상황만 출력 |
+
+오류 발생 시 전체 스택 트레이스가 로그 파일에 기록됩니다.
+
 ## 주요 파일
 
 | 파일 | 설명 |
@@ -93,3 +110,5 @@ python pdf.py tiger_kr.pdf
 | `.env` | 환경 변수 설정 (git 제외) |
 | `.env.example` | 환경 변수 예시 템플릿 |
 | `pyproject.toml` | 프로젝트 의존성 및 설정 |
+| `notify.py` | 이메일 알림 모듈 |
+| `logs/` | 날짜별 로그 파일 (git 제외) |
