@@ -1,0 +1,27 @@
+[project]
+name = "deepseek-ocr"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "addict>=2.4.0",
+    "easydict>=1.13",
+    "einops>=0.8.2",
+    "img2pdf>=0.6.3",
+    "numpy>=2.5.0",
+    "pillow>=12.2.0",
+    "pymupdf>=1.27.2.3",
+    "python-dotenv",
+    "tokenizers==0.20.3",
+    "torch>=2.6.0",
+    "transformers==4.46.3",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu126" }
