@@ -1,11 +1,12 @@
 import json
+import os
+
 import requests
 
-
-_MAIL_URL = 'http://apisvr.boranet.net:3300/api/v1/send'
+_MAIL_URL = os.environ["MAIL_URL"]
 _MAIL_HEADERS = {
     'Content-Type': 'application/json',
-    'api_key': 'JDJiJDEyJHdOTk96N1lJSzJUZXFGQVRwbHhSeS5GZmxuNGtYaURSVGRwaFlFNS5uelo1LlNUR25xL2tx',
+    'api_key': os.environ["MAIL_API_KEY"],
 }
 
 
