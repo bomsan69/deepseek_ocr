@@ -48,6 +48,8 @@ cp .env.example .env
 | `IMAGE_SIZE` | `640` | 모델 image_size 파라미터 |
 | `CROP_MODE` | `true` | crop 모드 활성화 여부 |
 | `OUTPUT_DIR` | `./output` | 결과 파일 저장 경로 |
+| `MAIL_URL` | — | 메일 발송 API 엔드포인트 |
+| `MAIL_API_KEY` | — | 메일 API 인증 키 |
 
 ## 다중 GPU 병렬 처리
 
