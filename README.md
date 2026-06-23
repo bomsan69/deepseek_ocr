@@ -7,6 +7,7 @@ DeepSeek OCR 모델을 이용해 PDF를 Markdown으로 변환하는 CLI 도구
 | 항목 | 값 |
 |---|---|
 | **Path** | `/Users/jeahyungchung/Project/AI/ocr_project/deepseek_ocr` |
+| **Repository** | `https://github.com/bomsan69/deepseek_ocr` |
 
 ## 개요
 
