@@ -9,6 +9,10 @@ import torch.multiprocessing as mp
 from dotenv import load_dotenv
 from transformers import AutoModel, AutoTokenizer
 
+from notify import send_mail
+
+NOTIFY_EMAIL = "bomsan69@gmail.com"
+
 load_dotenv()
 
 MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-ai/DeepSeek-OCR")
@@ -116,6 +120,18 @@ def process_pdf(pdf_path: str) -> None:
     print(f"\n완료! 결과 파일: {output_path}")
     print(f"총 {len(results)} 페이지 처리됨.")
 
+    send_mail(
+        to=NOTIFY_EMAIL,
+        title=f"[DeepSeek OCR] {pdf_basename} 처리 완료",
+        message=(
+            f"OCR 작업이 완료되었습니다.\n\n"
+            f"파일: {pdf_basename}\n"
+            f"처리 페이지: {len(results)} / {total_pages}\n"
+            f"결과 파일: {output_path}\n"
+            f"완료 시각: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        ),
+    )
+
 
 def main():
     parser = argparse.ArgumentParser(description="DeepSeek OCR - PDF to Markdown")
@@ -126,7 +142,20 @@ def main():
         print(f"오류: 파일을 찾을 수 없습니다 - {args.pdf_path}")
         raise SystemExit(1)
 
-    process_pdf(args.pdf_path)
+    try:
+        process_pdf(args.pdf_path)
+    except Exception as e:
+        send_mail(
+            to=NOTIFY_EMAIL,
+            title=f"[DeepSeek OCR] {os.path.basename(args.pdf_path)} 처리 실패",
+            message=(
+                f"OCR 작업 중 오류가 발생했습니다.\n\n"
+                f"파일: {args.pdf_path}\n"
+                f"오류: {e}\n"
+                f"발생 시각: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            ),
+        )
+        raise
 
 
 if __name__ == "__main__":
